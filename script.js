@@ -1,7 +1,6 @@
 const url = window.location.toString();
 const nickFromUrl = (url) => {
-  let urlSplit = url.split('=');
-  let userName = urlSplit[1];
+  let userName = (url.split('='))[1];
   if (userName == undefined) {
     userName = 'akartynnik';
   }
@@ -19,12 +18,10 @@ function preloaderHide () {
   content.style.display = 'block';
 }
 
-setTimeout(preloaderHide, 1000);
-
 fetch(`https://api.github.com/users/${nick}`)
   .then(res => res.json())
   .then(json => {
-    if (json.login != undefined) {
+    if (json.login !== undefined) {
       const avatarAdd = () => {
         const img = document.createElement('img');
         img.src = json.avatar_url;
@@ -56,7 +53,7 @@ fetch(`https://api.github.com/users/${nick}`)
         link.innerHTML = 'Link';
         content.append(link);
       }
-
+      preloaderHide();
       nameAdd();
       avatarAdd();
       bioAdd();
